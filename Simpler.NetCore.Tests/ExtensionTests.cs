@@ -11,11 +11,11 @@ namespace Simpler.NetCore.Tests {
     [Fact]
     [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull")]
     void IfNotNullAction() {
-      IList<Boolean> n = null;
-      IList<Boolean> s = new List<Boolean>();
+      IList<Boolean>? n = null;
+      IList<Boolean>? s = new List<Boolean>();
 
-      n.IfNotNull(l => l.Add(true)).Should().BeFalse();
-      s.IfNotNull(l => l.Add(true)).Should().BeTrue();
+      n.IfNotNull(l => l!.Add(true)).Should().BeFalse();
+      s.IfNotNull(l => l!.Add(true)).Should().BeTrue();
 
       n.Should().BeNull();
       s.Should().ContainSingle(_ => _);

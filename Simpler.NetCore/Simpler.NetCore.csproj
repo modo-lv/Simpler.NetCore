@@ -1,8 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>netstandard1.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>0.0.1</PackageVersion>
+        <Authors>modo.lv</Authors>
+        <PackageProjectUrl>https://github.com/modo-lv/Simpler.NetCore</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/modo-lv/Simpler.NetCore/tree/v0.0.1</RepositoryUrl>
+        <RepositoryType>GitHub</RepositoryType>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
