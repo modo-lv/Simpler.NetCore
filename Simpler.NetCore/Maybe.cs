@@ -34,10 +34,11 @@ namespace Simpler.NetCore {
     /// <summary>
     /// Retrieve the value, if present. Will throw if empty!
     /// </summary>
-    public T Get => this._value.FirstOrDefault() ??
-                    throw new NullReferenceException(
-                      $"{this.GetType().Name}<{this.GetType().GenericTypeArguments.First().Name}> has no value."
-                    );
+    public T Get => this._value.Any()
+      ? this._value.First()
+      : throw new NullReferenceException(
+        $"{this.GetType().Name}<{this.GetType().GenericTypeArguments.First().Name}> has no value."
+      );
 
     /// <summary>
     /// Set the new value of this Maybe.

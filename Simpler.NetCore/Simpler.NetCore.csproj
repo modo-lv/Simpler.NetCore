@@ -4,10 +4,10 @@
         <TargetFramework>netstandard1.0</TargetFramework>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>0.1.1</PackageVersion>
+        <PackageVersion>0.1.1.1</PackageVersion>
         <Authors>modo.lv</Authors>
         <PackageProjectUrl>https://github.com/modo-lv/Simpler.NetCore</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/modo-lv/Simpler.NetCore/tree/v0.1.1</RepositoryUrl>
+        <RepositoryUrl>https://github.com/modo-lv/Simpler.NetCore/tree/v0.1.1.1</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
         <LangVersion>default</LangVersion>
     </PropertyGroup>
