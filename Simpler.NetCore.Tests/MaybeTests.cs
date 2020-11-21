@@ -33,5 +33,10 @@ namespace Simpler.NetCore.Tests {
       var no = May.Be((String)null!);
       String.Join("", yes.Concat(no).Concat(values)).Should().Be("Xabc");
     }
+
+    [Fact]
+    void SetIfEmpty() {
+      May.BeNot<String>().SetIfEmpty("full").Should().BeEquivalentTo(May.Be("full"));
+    }
   }
 }

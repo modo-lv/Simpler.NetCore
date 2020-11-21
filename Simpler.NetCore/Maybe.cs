@@ -51,6 +51,24 @@ namespace Simpler.NetCore {
     }
 
     /// <summary>
+    /// Set the value of this Maybe only if it doesn't have one already.
+    /// </summary>
+    public Maybe<T> SetIfEmpty(T value) {
+      if (this.IsEmpty)
+        this.Set(value);
+      return this;
+    }
+
+    /// <summary>
+    /// Syntactic sugar for checking if this Maybe has no value.
+    /// </summary>
+    public Boolean IsEmpty => !this._value.Any();
+    /// <summary>
+    /// Syntactic sugar for checking if this Maybe has a value.
+    /// </summary>
+    public Boolean NotEmpty => !this.IsEmpty;
+
+    /// <summary>
     /// Return value if this Maybe has a value, or a provided fallback value if it doesn't.
     /// </summary>
     /// <param name="fallback">Fallback value to return if this Maybe has no value.</param>

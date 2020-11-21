@@ -46,6 +46,14 @@ var no = May.Be((String)null!);
 String.Join("", yes.Concat(no).Concat(values)); // "Xabc"
 ```
 
+
+### `.Set()`, `.SetIfEmpty()`
+```cs
+May.BeNot<Int32>().Set(1);              // Maybe<Int32>(1)
+May.BeNot<String>().SetIfEmpty("full"); // Maybe<String>("full")
+```
+
+
 ### `.Map`
 Run a function on the value of `Maybe` if present.
 
