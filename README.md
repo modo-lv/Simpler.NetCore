@@ -33,7 +33,19 @@ null.IfNotNull(_ => _ + _, "Nothing");    // "Nothing"
 "Text".IfNotNull(_ => _ + _, "Nothing");  // "TextText"
 ```
 
+### `.ToStringOr()`
+A fluent alternative to `value?.ToString() ?? fallback;`.
+```cs
+null.ToStringOr("Nothing");   // "Nothing"
+123.ToStringOr("Nothing");    // "123"
+```
 
+### `.ToStringOrEmpty()`
+A fluent alternative to `value?.ToString() ?? String.Empty;`.
+```cs
+null.ToStringOrEmpty();   // ""
+321.ToStringOrEmpty();    // "321"
+```
 
 ### `.ToMaybe()`
 
