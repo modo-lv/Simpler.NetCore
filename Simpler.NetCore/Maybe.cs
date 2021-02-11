@@ -16,13 +16,13 @@ namespace Simpler.NetCore {
     /// <summary>
     /// Underlying list holding the value (if non-null). 
     /// </summary>
-    private readonly IList<T> _value = new List<T>(1);
+    private readonly IList<T> _value = new List<T>(capacity: 1);
 
     /// <summary>
     /// Create a Maybe with a given value.
     /// </summary>
     /// <param name="value"></param>
-    public Maybe(T value) {
+    public Maybe(T? value) {
       this.Set(value);
     }
 
@@ -43,7 +43,7 @@ namespace Simpler.NetCore {
     /// <summary>
     /// Set the new value of this Maybe.
     /// </summary>
-    public Maybe<T> Set(T value) {
+    public Maybe<T> Set(T? value) {
       this._value.Clear();
       if (value != null)
         this._value.Add(value);
@@ -53,7 +53,7 @@ namespace Simpler.NetCore {
     /// <summary>
     /// Set the value of this Maybe only if it doesn't have one already.
     /// </summary>
-    public Maybe<T> SetIfEmpty(T value) {
+    public Maybe<T> SetIfEmpty(T? value) {
       if (this.IsEmpty)
         this.Set(value);
       return this;
@@ -72,9 +72,9 @@ namespace Simpler.NetCore {
     /// Return value if this Maybe has a value, or a provided fallback value if it doesn't.
     /// </summary>
     /// <param name="fallback">Fallback value to return if this Maybe has no value.</param>
-    /// <typeparam name="TOut"></typeparam>
+    /// <typeparam name="TOut">Return value type.</typeparam>
     /// <returns></returns>
-    public T GetOr<TOut>(TOut fallback) where TOut : notnull, T {
+    public T GetOr<TOut>(TOut fallback) where TOut : T {
       return this.FirstOrDefault() ?? fallback;
     }
 
@@ -118,7 +118,7 @@ namespace Simpler.NetCore {
     /// <summary>
     /// Create a Maybe with a given value.
     /// </summary>
-    public static Maybe<T> Be<T>(T value) where T : notnull {
+    public static Maybe<T> Be<T>(T? value) where T : notnull {
       return new Maybe<T>(value);
     }
 
@@ -126,7 +126,7 @@ namespace Simpler.NetCore {
     /// Fluent alternative for creating a Maybe without value.
     /// </summary>
     public static Maybe<T> BeNot<T>() where T : notnull {
-      return new Maybe<T>();
+      return new();
     }
   }
 }

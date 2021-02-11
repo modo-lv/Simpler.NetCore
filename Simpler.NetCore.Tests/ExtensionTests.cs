@@ -8,6 +8,13 @@ using Xunit;
 
 namespace Simpler.NetCore.Tests {
   public class ExtensionTests {
+    [Theory]
+    [InlineData(data: null)]
+    [InlineData("Text")]
+    void Maybe(String? value) {
+      value.Maybe().IsEmpty.Should().Be(value == null);
+    }
+    
     [Fact]
     [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull")]
     void IfNotNullAction() {

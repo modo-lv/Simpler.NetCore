@@ -16,6 +16,15 @@ n.IfNotNull(l => l!.Add(true)); // Returns `false`, `n` remains `null`
 s.IfNotNull(l => l!.Add(true)); // Returns `true`, `s` now contains one boolean element: `true`
 ```
 
+### `.Maybe()`
+
+Create a `Maybe<T>` (see below) from a given object/value. A fluent alternative to `May.Be(obj)`.
+
+```cs
+null.Maybe().IsEmpty;   // true
+"Text".Maybe().IsEmpty; // false
+```
+
 
 ## `Maybe`
 
