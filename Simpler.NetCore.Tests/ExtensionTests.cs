@@ -12,9 +12,23 @@ namespace Simpler.NetCore.Tests {
     [InlineData(data: null)]
     [InlineData("Text")]
     void Maybe(String? value) {
-      value.Maybe().IsEmpty.Should().Be(value == null);
+      value.ToMaybe().IsEmpty.Should().Be(value == null);
+    }
+
+    [Theory]
+    [InlineData(data: null)]
+    [InlineData("Text")]
+    void IfNotNullFuncNullable(String? value) {
+      value.IfNotNull(_ => _ + _).Should().Be(value == null ? null : "TextText");
     }
     
+    [Theory]
+    [InlineData(data: null)]
+    [InlineData("Text")]
+    void IfNotNullFunc(String? value) {
+      value.IfNotNull(_ => _ + _, "Nothing").Should().Be(value == null ? "Nothing" : "TextText");
+    }
+
     [Fact]
     [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull")]
     void IfNotNullAction() {

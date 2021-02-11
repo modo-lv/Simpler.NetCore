@@ -16,7 +16,26 @@ n.IfNotNull(l => l!.Add(true)); // Returns `false`, `n` remains `null`
 s.IfNotNull(l => l!.Add(true)); // Returns `true`, `s` now contains one boolean element: `true`
 ```
 
-### `.Maybe()`
+### `.IfNotNull(func)` (nullable)
+
+A fluent alternative to `value != null ? func(value) : null;`.
+
+```cs
+null.IfNotNull(_ => _ + _);    // null
+"Text".IfNotNull(_ => _ + _);  // "TextText"
+```
+
+### `.IfNotNull(func, fallback)`
+A fluent alternative to `value != null ? func(value) : fallback;`.
+
+```cs
+null.IfNotNull(_ => _ + _, "Nothing");    // "Nothing"
+"Text".IfNotNull(_ => _ + _, "Nothing");  // "TextText"
+```
+
+
+
+### `.ToMaybe()`
 
 Create a `Maybe<T>` (see below) from a given object/value. A fluent alternative to `May.Be(obj)`.
 
@@ -63,7 +82,7 @@ May.BeNot<String>().SetIfEmpty("full"); // Maybe<String>("full")
 ```
 
 
-### `.Map`
+### `.Map()`
 Run a function on the value of `Maybe` if present.
 
 ```cs
@@ -72,3 +91,11 @@ var no = May.BeNot<String>();
 yes.Map(_ => true) // Maybe<Boolean>(true)
 no.Map(_ => 1)     // Maybe<Int32>(null)
 ``` 
+
+### `.MapGetOr()`
+Map (transform) the value of this Maybe if it has one, or to a fallback value if not.
+
+```cs
+May.Be(null).MapGetOr(_ => _ + _, "Nothing");   // "Nothing"
+May.Be("Yes").MapGetOr(_ => _ + _, "Nothing");  // "YesYes"
+```

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Simpler.NetCore {
   /// <summary>
@@ -63,6 +62,7 @@ namespace Simpler.NetCore {
     /// Syntactic sugar for checking if this Maybe has no value.
     /// </summary>
     public Boolean IsEmpty => !this._value.Any();
+
     /// <summary>
     /// Syntactic sugar for checking if this Maybe has a value.
     /// </summary>
@@ -79,18 +79,27 @@ namespace Simpler.NetCore {
     }
 
     /// <summary>
-    /// Map this Maybe value to another.
+    /// Map this Maybe-value to another.
     /// </summary>
-    /// <param name="transformer"></param>
-    /// <typeparam name="TOut"></typeparam>
-    /// <returns></returns>
-    public Maybe<TOut> Map<TOut>(Func<T, TOut> transformer) where TOut : notnull {
-      return this._value.Select(_ => May.Be(transformer(_))).FirstOrDefault() ?? May.BeNot<TOut>();
-    }
+    /// <param name="transformer">Function to use on the value of Maybe.</param>
+    /// <typeparam name="TOut">Type of the resulting Maybe.</typeparam>
+    /// <returns>The new maybe-value.</returns>
+    public Maybe<TOut> Map<TOut>(Func<T, TOut> transformer) where TOut : notnull =>
+      this.MapGetOr(_ => May.Be(transformer(_)), May.BeNot<TOut>());
+
+    /// <summary>
+    /// Map (transform) the value of this Maybe if it has one, or to a fallback value if not.
+    /// </summary>
+    /// <param name="transformer">Function to use to map the current value to a new one.</param>
+    /// <param name="fallback">Fallback value to return if maybe has no value.</param>
+    /// <typeparam name="TOut">The type of the resulting value.</typeparam>
+    /// <returns>Mapping result or fallback.</returns>
+    public TOut MapGetOr<TOut>(Func<T, TOut> transformer, TOut fallback) =>
+      this._value.Select(transformer).FirstOrDefault() ?? fallback;
 
     /// <inheritdoc />
-    public IEnumerator<T> GetEnumerator() => (IEnumerator<T>) this._value.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
+    public IEnumerator<T> GetEnumerator() => this._value.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
 
     /// <inheritdoc />
@@ -98,6 +107,7 @@ namespace Simpler.NetCore {
       if (obj is Maybe<T> maybe) {
         return Object.Equals(this._value.FirstOrDefault(), maybe._value.FirstOrDefault());
       }
+
       return false;
     }
 
@@ -119,7 +129,7 @@ namespace Simpler.NetCore {
     /// Create a Maybe with a given value.
     /// </summary>
     public static Maybe<T> Be<T>(T? value) where T : notnull {
-      return new Maybe<T>(value);
+      return new(value);
     }
 
     /// <summary>

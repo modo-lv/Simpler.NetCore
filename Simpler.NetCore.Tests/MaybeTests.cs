@@ -20,10 +20,17 @@ namespace Simpler.NetCore.Tests {
 
     [Theory]
     [InlineData("Yes")]
-    [InlineData(null)]
-    void Map(String value) {
-      var maybe = May.Be(value);
-      maybe.Map(_ => 1).GetOr(0).Should().Be(value == null ? 0 : 1);
+    [InlineData(data: null)]
+    void Map(String? value) {
+      Maybe<String> maybe = May.Be(value);
+      maybe.Map(_ => 1).GetOr(fallback: 0).Should().Be(value == null ? 0 : 1);
+    }
+
+    [Theory]
+    [InlineData("Yes")]
+    [InlineData(data: null)]
+    void MapGetOr(String? value) {
+      May.Be(value).MapGetOr(_ => _ + _, "Nothing").Should().Be(value == null ? "Nothing" : "YesYes");
     }
 
     [Fact]
